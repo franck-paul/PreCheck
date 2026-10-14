@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 PreCheck module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-12 13:01+0200\n"
+"POT-Creation-Date: 2026-10-14 13:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #, php-format
-msgid "Some verifications requested by Dotclear <strong>%s</strong> should be done before upgrading:"
+msgid "Some verifications requested by Dotclear <strong>%1$s</strong> should be done before upgrading:"
 msgstr ""
 
 msgid "Pre check"
@@ -26,5 +26,31 @@ msgstr ""
 msgid "Everything looks fine; you should be able to perform the update without any problems."
 msgstr ""
 
-msgid "<code>App::url()->type</code> is no longer usable, replace it by <code>App::url()->getType()</code> in following modules."
+#, php-format
+msgid "<code>%s</code> still used in this file:"
+msgid_plural "<code>%s</code> still used in these files:"
+msgstr[0] ""
+msgstr[1] ""
+
+#, php-format
+msgid "<strong>%s</strong> plugin:"
+msgstr ""
+
+msgid "Plugins:"
+msgstr ""
+
+#, php-format
+msgid "<strong>%s</strong> theme:"
+msgstr ""
+
+msgid "Themes:"
+msgstr ""
+
+msgid "The <code>App::url()->type</code> property is no longer accessible as of <strong>Dotclear 2.39</strong> (released on August 13, 2026), but is still in use.<br>You should check and/or update the following modules (by replacing <code>App::url()->type</code> with <code>App::url()->getType()</code>)."
+msgstr ""
+
+msgid "Some distributed themes may appear in this list if you copied them to a directory other than Dotclear's <var>themes</var> directory.<br>In that case, we recommend deleting them from your custom directory and using the button labeled “ Add the distributed themes here ” on the blog's appearance page."
+msgstr ""
+
+msgid "<code>dcCore</code> and <code>dcUtils</code> are deprecated since <strong>Dotclear 2.28</strong> (published on November 15, 2023) and are still used.<br>You should review or/and update the following modules."
 msgstr ""
