@@ -62,7 +62,7 @@ class Version_2_39
                             ->items($lines_files);
                         $lines_terms[] = (new Li())
                             ->text(sprintf(
-                                __('<code>%s</code> still used in this file:', '<code>%s</code> still used in these files:', count($lines_files)),
+                                __('<code>%s</code> still present in this file:', '<code>%s</code> still present in these files:', count($lines_files)),
                                 $term
                             ))
                             ->items([
@@ -109,7 +109,7 @@ class Version_2_39
                             ->items($lines_files);
                         $lines_terms[] = (new Li())
                             ->text(sprintf(
-                                __('<code>%s</code> still used in this file:', '<code>%s</code> still used in these files:', count($lines_files)),
+                                __('<code>%s</code> still present in this file:', '<code>%s</code> still present in these files:', count($lines_files)),
                                 $term
                             ))
                             ->items([
@@ -139,7 +139,7 @@ class Version_2_39
                 ->items([
                     (new Note())
                         ->class('warn')
-                        ->text(__('The <code>App::url()->type</code> property is no longer accessible as of <strong>Dotclear 2.39</strong> (released on August 13, 2026), but is still in use.<br>You should check and/or update the following modules (by replacing <code>App::url()->type</code> with <code>App::url()->getType()</code>).')),
+                        ->text(__('The <code>App::url()->type</code> property is no longer accessible as of <strong>Dotclear 2.39</strong> (released on August 13, 2026), but is still present in the following modules.<br>You should review and update them (by replacing <code>App::url()->type</code> with <code>App::url()->getType()</code>).')),
                     (new Ul())
                         ->items($lines_modules),
                     (new Note())

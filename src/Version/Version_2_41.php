@@ -63,7 +63,7 @@ class Version_2_41
                             ->items($lines_files);
                         $lines_terms[] = (new Li())
                             ->text(sprintf(
-                                __('<code>%s</code> still used in this file:', '<code>%s</code> still used in these files:', count($lines_files)),
+                                __('<code>%s</code> still present in this file:', '<code>%s</code> still present in these files:', count($lines_files)),
                                 $term
                             ))
                             ->items([
@@ -110,7 +110,7 @@ class Version_2_41
                             ->items($lines_files);
                         $lines_terms[] = (new Li())
                             ->text(sprintf(
-                                __('<code>%s</code> still used in this file:', '<code>%s</code> still used in these files:', count($lines_files)),
+                                __('<code>%s</code> still present in this file:', '<code>%s</code> still present in these files:', count($lines_files)),
                                 $term
                             ))
                             ->items([
@@ -140,7 +140,7 @@ class Version_2_41
                 ->items([
                     (new Note())
                         ->class('warn')
-                        ->text(__('<code>dcCore</code> and <code>dcUtils</code> are deprecated since <strong>Dotclear 2.28</strong> (published on November 15, 2023) and are still used.<br>You should review or/and update the following modules.')),
+                        ->text(__('<code>dcCore</code> and <code>dcUtils</code> are deprecated since <strong>Dotclear 2.28</strong> (published on November 15, 2023) and are still present in the following modules.<br>You should review and update them.')),
                     (new Ul())
                         ->items($lines_modules),
                     (new Note())
