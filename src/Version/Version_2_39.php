@@ -20,42 +20,133 @@ use Dotclear\Helper\Html\Form\Li;
 use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Set;
 use Dotclear\Helper\Html\Form\Ul;
+use Dotclear\Plugin\PreCheck\Helper;
 
 class Version_2_39
 {
     public static function check(): ?Component
     {
         // Check if there any reference to App::url()->type which should be replaced by App::url()->getType()
-        // The result will be provided as a unumbered list, grouped by module type
 
-        return (new Set())
-            ->items([
-                (new Note())
-                    ->text(__('<code>App::url()->type</code> is no longer usable, replace it by <code>App::url()->getType()</code> in following modules.')),
-                (new Ul())
+        $search_terms = [
+            'App::url()->type' => '/App::url\(\)->type/m',
+        ];
+
+        $plugins = Helper::getPlugins();
+        $themes  = Helper::getThemes(exclude_distributed: false);   // We may have some old distributed themes copied in current themes folder
+
+        $results_plugins = Helper::searchInSourceFilesOfModules($plugins, $search_terms);
+        $results_themes  = Helper::searchInSourceFilesOfModules($themes, $search_terms);
+
+        if ($results_plugins !== [] || $results_themes !== []) {
+            $lines_modules = [];
+
+            if ($results_plugins !== []) {
+                $group_module  = (new Ul());
+                $lines_plugins = [];
+
+                foreach ($results_plugins as $plugin => $terms) {
+                    $group_plugin = (new Ul());
+                    $lines_terms  = [];
+
+                    foreach ($terms as $term => $files) {
+                        $group_term  = (new Ul());
+                        $lines_files = [];
+
+                        foreach ($files as $file) {
+                            $lines_files[] = (new Li())
+                                ->text($file);
+                        }
+
+                        $group_term
+                            ->items($lines_files);
+                        $lines_terms[] = (new Li())
+                            ->text(sprintf(
+                                __('<code>%s</code> still used in this file:', '<code>%s</code> still used in these files:', count($lines_files)),
+                                $term
+                            ))
+                            ->items([
+                                $group_term,
+                            ]);
+                    }
+
+                    $group_plugin
+                        ->items($lines_terms);
+                    $lines_plugins[] = (new Li())
+                        ->text(sprintf(__('<strong>%s</strong> plugin:'), $plugin))
+                        ->items([
+                            $group_plugin,
+                        ]);
+                }
+
+                $group_module
+                    ->items($lines_plugins);
+                $lines_modules[] = (new Li())
+                    ->text(__('Plugins:'))
                     ->items([
-                        (new Li())
-                            ->text('Plugins')
+                        $group_module,
+                    ]);
+            }
+
+            if ($results_themes !== []) {
+                $group_module = (new Ul());
+                $lines_themes = [];
+
+                foreach ($results_themes as $theme => $terms) {
+                    $group_theme = (new Ul());
+                    $lines_terms = [];
+
+                    foreach ($terms as $term => $files) {
+                        $group_term  = (new Ul());
+                        $lines_files = [];
+
+                        foreach ($files as $file) {
+                            $lines_files[] = (new Li())
+                                ->text($file);
+                        }
+
+                        $group_term
+                            ->items($lines_files);
+                        $lines_terms[] = (new Li())
+                            ->text(sprintf(
+                                __('<code>%s</code> still used in this file:', '<code>%s</code> still used in these files:', count($lines_files)),
+                                $term
+                            ))
                             ->items([
-                                (new Ul())
-                                    ->items([
-                                        (new Li())
-                                            ->text('module 1 : src/Frontend.php'),
-                                        (new Li())
-                                            ->text('module 2 : src/FrontendBehaviors.php'),
-                                    ]),
-                            ]),
-                        (new Li())
-                            ->text('Themes')
-                            ->items([
-                                (new Ul())
-                                    ->items([
-                                        (new Li())
-                                            ->text('theme 3 : src/Frontend.php'),
-                                    ]),
-                            ]),
-                    ]),
-            ]);
+                                $group_term,
+                            ]);
+                    }
+
+                    $group_theme
+                        ->items($lines_terms);
+                    $lines_themes[] = (new Li())
+                        ->text(sprintf(__('<strong>%s</strong> theme:'), $theme))
+                        ->items([
+                            $group_theme,
+                        ]);
+                }
+
+                $group_module
+                    ->items($lines_themes);
+                $lines_modules[] = (new Li())
+                    ->text(__('Themes:'))
+                    ->items([
+                        $group_module,
+                    ]);
+            }
+
+            return (new Set())
+                ->items([
+                    (new Note())
+                        ->class('warn')
+                        ->text(__('The <code>App::url()->type</code> property is no longer accessible as of <strong>Dotclear 2.39</strong> (released on August 13, 2026), but is still in use.<br>You should check and/or update the following modules (by replacing <code>App::url()->type</code> with <code>App::url()->getType()</code>).')),
+                    (new Ul())
+                        ->items($lines_modules),
+                    (new Note())
+                        ->class('info')
+                        ->text(__('Some distributed themes may appear in this list if you copied them to a directory other than Dotclear\'s <var>themes</var> directory.<br>In that case, we recommend deleting them from your custom directory and using the button labeled “ Add the distributed themes here ” on the blog\'s appearance page.')),
+                ]);
+        }
 
         return null;
     }

@@ -21,7 +21,6 @@ use Dotclear\Helper\Html\Form\Component;
 use Dotclear\Helper\Html\Form\Details;
 use Dotclear\Helper\Html\Form\Div;
 use Dotclear\Helper\Html\Form\Note;
-use Dotclear\Helper\Html\Form\Para;
 use Dotclear\Helper\Html\Form\Summary;
 use Dotclear\Helper\Html\Html;
 use Dotclear\Helper\Process\TraitProcess;
@@ -73,11 +72,8 @@ class Manage
                     // Some actions should be taken before upgrading
                     $results[] = (new Details('precheck-' . $precheck['version']))
                         ->open(true)
-                        ->summary((new Summary(sprintf(__('Some verifications requested by Dotclear <strong>%s</strong> should be done before upgrading:'), $precheck['version']))))
-                        ->items([
-                            (new Para())
-                                ->items([$result]),
-                        ]);
+                        ->summary((new Summary(sprintf(__('Some verifications requested by Dotclear <strong>%1$s</strong> should be done before upgrading:'), $precheck['version']))))
+                        ->items([$result]);
                     // Change status to show details in render
                     self::$status = false;
                 }
@@ -99,7 +95,10 @@ class Manage
             return;
         }
 
-        App::backend()->page()->openModule(My::name());
+        App::backend()->page()->openModule(
+            My::name(),
+            My::cssLoad('backend.css')
+        );
 
         echo App::backend()->page()->breadcrumb(
             [
