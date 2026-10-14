@@ -1,56 +1,96 @@
 # SOME DESCRIPTIVE TITLE.
 # This file is put in the public domain.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
+# Translators:
+# Franck Paul <contact+transifex@open-time.net>, 2026
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 PreCheck module\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-10-14 13:43+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2026-10-14 11:54+0000\n"
+"Last-Translator: Franck Paul <contact+transifex@open-time.net>, 2026\n"
+"Language-Team: French (https://app.transifex.com/open-time/teams/109573/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #, php-format
-msgid "Some verifications requested by Dotclear <strong>%1$s</strong> should be done before upgrading:"
+msgid ""
+"Some verifications requested by Dotclear <strong>%1$s</strong> should be "
+"done before upgrading:"
 msgstr ""
+"Quelques vérifications requises par Dotclear <strong>%1$s</strong> doivent "
+"être effectuées avant la mise à jour :"
 
 msgid "Pre check"
-msgstr ""
+msgstr "Vérification préalable"
 
-msgid "Everything looks fine; you should be able to perform the update without any problems."
+msgid ""
+"Everything looks fine; you should be able to perform the update without any "
+"problems."
 msgstr ""
+"Tout semble en ordre ; vous devriez pouvoir effectuer la mise à jour sans "
+"aucun problème."
 
 #, php-format
 msgid "<code>%s</code> still used in this file:"
 msgid_plural "<code>%s</code> still used in these files:"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "<code>%s</code> toujours utilisé dans ce fichier :"
+msgstr[1] "<code>%s</code> toujours utilisé dans ces fichiers :"
+msgstr[2] "<code>%s</code> toujours utilisé dans ces fichiers :"
 
 #, php-format
 msgid "<strong>%s</strong> plugin:"
-msgstr ""
+msgstr "Plugin <strong>%s</strong> :"
 
 msgid "Plugins:"
-msgstr ""
+msgstr "Plugins :"
 
 #, php-format
 msgid "<strong>%s</strong> theme:"
-msgstr ""
+msgstr "Thème <strong>%s</strong> :"
 
 msgid "Themes:"
-msgstr ""
+msgstr "Thèmes :"
 
-msgid "The <code>App::url()->type</code> property is no longer accessible as of <strong>Dotclear 2.39</strong> (released on August 13, 2026), but is still in use.<br>You should check and/or update the following modules (by replacing <code>App::url()->type</code> with <code>App::url()->getType()</code>)."
+msgid ""
+"The <code>App::url()->type</code> property is no longer accessible as of "
+"<strong>Dotclear 2.39</strong> (released on August 13, 2026), but is still "
+"in use.<br>You should check and/or update the following modules (by "
+"replacing <code>App::url()->type</code> with "
+"<code>App::url()->getType()</code>)."
 msgstr ""
+"La propriété <code>App::url()->type</code> n'est plus accessible depuis "
+"<strong>la version 2.39 de Dotclear</strong> (publiée le 13 août 2026), mais"
+" elle est toujours utilisée.<br>Vous devriez vérifier et/ou mettre à jour "
+"les modules suivants (en remplaçant <code>App::url()->type</code> par "
+"<code>App::url()->getType()</code>)."
 
-msgid "Some distributed themes may appear in this list if you copied them to a directory other than Dotclear's <var>themes</var> directory.<br>In that case, we recommend deleting them from your custom directory and using the button labeled “ Add the distributed themes here ” on the blog's appearance page."
+msgid ""
+"Some distributed themes may appear in this list if you copied them to a "
+"directory other than Dotclear's <var>themes</var> directory.<br>In that "
+"case, we recommend deleting them from your custom directory and using the "
+"button labeled “ Add the distributed themes here ” on the blog's appearance "
+"page."
 msgstr ""
+"Certains thèmes distribués peuvent apparaître dans cette liste si vous les "
+"avez copiés dans un répertoire autre que le répertoire <var>des thèmes</var>"
+" de Dotclear.<br>Dans ce cas, nous vous recommandons de les supprimer de "
+"votre répertoire personnalisé et d'utiliser le bouton intitulé « Ajouter les"
+" thèmes distribués ici » sur la page d'apparence du blog."
 
-msgid "<code>dcCore</code> and <code>dcUtils</code> are deprecated since <strong>Dotclear 2.28</strong> (published on November 15, 2023) and are still used.<br>You should review or/and update the following modules."
+msgid ""
+"<code>dcCore</code> and <code>dcUtils</code> are deprecated since "
+"<strong>Dotclear 2.28</strong> (published on November 15, 2023) and are "
+"still used.<br>You should review or/and update the following modules."
 msgstr ""
+"<code>dcCore</code> et <code>dcUtils</code> sont obsolètes depuis "
+"<strong>Dotclear 2.28</strong> (publiée le 15 novembre 2023) mais sont "
+"toujours utilisés.<br>Nous vous recommandons de vérifier et/ou de mettre à "
+"jour les modules suivants."
