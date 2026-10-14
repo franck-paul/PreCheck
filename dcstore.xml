@@ -4,8 +4,8 @@
     <version>1.0</version>
     <author>Franck Paul</author>
     <desc>Pre check before upgrading</desc>
-    <date>2026-08-03T10:08:46+0200</date>
-    <file>https://github.com/franck-paul/PreCheck/releases/download/0.0/plugin-PreCheck-0.0.zip</file>
+    <date>2026-10-14T14:02:19+0200</date>
+    <file>https://github.com/franck-paul/PreCheck/releases/download/1.0/plugin-PreCheck-1.0.zip</file>
     <da:dcmin>2.38</da:dcmin>
     <da:details>https://dotclear.org/plugin/detail/PreCheck</da:details>
     <da:support>https://github.com/franck-paul/PreCheck</da:support>
