@@ -7,6 +7,6 @@ PreCheck plugin for Dotclear 2
 
 ============================
 
-This plugin make some version pre-checks (useful before a Dotclear upgrade)
+This plugin does some version pre-checks (useful before a Dotclear upgrade)
 
 Author: [Franck Paul](https://open-time.net/)
