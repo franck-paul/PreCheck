@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 PreCheck module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-15 13:13+0200\n"
+"POT-Creation-Date: 2026-10-15 16:52+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -77,13 +77,17 @@ msgid "The <code>App::url()->type</code> property is no longer accessible as of 
 msgstr ""
 
 #: ../git-plugins/PreCheck/src/Version/Version_2_39.php:147
-#: ../git-plugins/PreCheck/src/Version/Version_2_40.php:149
+#: ../git-plugins/PreCheck/src/Version/Version_2_40.php:152
 #: ../git-plugins/PreCheck/src/Version/Version_2_41.php:148
 msgid "Some distributed themes may appear in this list if you copied them to a directory other than Dotclear's <var>themes</var> directory.<br>In that case, we recommend deleting them from your custom directory and using the button labeled “ Add the distributed themes here ” on the blog's appearance page."
 msgstr ""
 
 #: ../git-plugins/PreCheck/src/Version/Version_2_40.php:144
-msgid "The <code>App::backend()->popup</code> property is no longer accessible as of <strong>Dotclear 2.40</strong>, but is still present in the following modules.<br>You should review and update them (by replacing <code>App::backend()->popup === 1</code> with <code>App::backend()->isPopup()</code>).<br>Also the <code>App::backend()->plugin_id</code> property is no longer accessible as of <strong>Dotclear 2.40</strong>, but is still present in the following modules.<br>You should review and update them (by replacing <code>App::backend()->plugin_id === 'admin.blog.theme'</code> with <code>MediaItem::isPopup()</code>)"
+msgid "The <code>App::backend()->popup</code> property is no longer accessible as of <strong>Dotclear 2.40</strong>, but is still present in the following modules.<br>You should review and update them (by replacing <code>App::backend()->popup === 1</code> with <code>App::backend()->isPopup()</code>).<br><br>Also the <code>App::backend()->plugin_id</code> property is no longer accessible as of <strong>Dotclear 2.40</strong>, but is still present in the following modules.<br>You should review and update them (by replacing <code>App::backend()->plugin_id === 'admin.blog.theme'</code> with <code>MediaItem::isPopup()</code>)."
+msgstr ""
+
+#: ../git-plugins/PreCheck/src/Version/Version_2_40.php:147
+msgid "Note that these modifications do not cause any issues with Dotclear 2.40 <strong>if and only if</strong> the <var>DC_MODERN</var> constant is set to <samp>false</samp> (or does not appear at all) in the configuration file (<var>inc/config.php</var>)."
 msgstr ""
 
 #: ../git-plugins/PreCheck/src/Version/Version_2_41.php:143

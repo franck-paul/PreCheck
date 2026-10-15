@@ -141,7 +141,10 @@ class Version_2_40
                 ->items([
                     (new Note())
                         ->class('warn')
-                        ->text(__('The <code>App::backend()->popup</code> property is no longer accessible as of <strong>Dotclear 2.40</strong>, but is still present in the following modules.<br>You should review and update them (by replacing <code>App::backend()->popup === 1</code> with <code>App::backend()->isPopup()</code>).<br>Also the <code>App::backend()->plugin_id</code> property is no longer accessible as of <strong>Dotclear 2.40</strong>, but is still present in the following modules.<br>You should review and update them (by replacing <code>App::backend()->plugin_id === \'admin.blog.theme\'</code> with <code>MediaItem::isPopup()</code>)')),
+                        ->text(__('The <code>App::backend()->popup</code> property is no longer accessible as of <strong>Dotclear 2.40</strong>, but is still present in the following modules.<br>You should review and update them (by replacing <code>App::backend()->popup === 1</code> with <code>App::backend()->isPopup()</code>).<br><br>Also the <code>App::backend()->plugin_id</code> property is no longer accessible as of <strong>Dotclear 2.40</strong>, but is still present in the following modules.<br>You should review and update them (by replacing <code>App::backend()->plugin_id === \'admin.blog.theme\'</code> with <code>MediaItem::isPopup()</code>).')),
+                    (new Note())
+                        ->class('info')
+                        ->text(__('Note that these modifications do not cause any issues with Dotclear 2.40 <strong>if and only if</strong> the <var>DC_MODERN</var> constant is set to <samp>false</samp> (or does not appear at all) in the configuration file (<var>inc/config.php</var>).')),
                     (new Ul())
                         ->items($lines_modules),
                     (new Note())
