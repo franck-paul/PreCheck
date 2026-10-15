@@ -68,7 +68,7 @@ class Helper
     }
 
     /**
-     * Search list of terms in a list of module and return an array of found source files containing these terms
+     * Search list of terms in a list of module and return an array of found PHP source files containing these terms
      * The result (list of source files) will be provided as an array with these keys:
      * - module name (primary)
      * - term (secondary)
@@ -78,7 +78,7 @@ class Helper
      *
      * @return array<string, array<string, string[]>>
      */
-    public static function searchInSourceFilesOfModules(array $modules, array $search_terms): array
+    public static function searchInPHPSourceFilesOfModules(array $modules, array $search_terms): array
     {
         $results = [];
 
@@ -87,10 +87,10 @@ class Helper
             $name = $module->get('name');
             if (is_string($name) && is_string($root) && is_dir($root)) {
                 // Scan root folder
-                $results = self::searchInSourceFilesOfModulesSubDir($results, $root, '', $name, $search_terms);
+                $results = self::searchInPHPSourceFilesOfModulesSubDir($results, $root, '', $name, $search_terms);
 
                 // Scan root/src folder and its sub folders
-                $results = self::searchInSourceFilesOfModulesSubDir($results, $root, 'src', $name, $search_terms, true);
+                $results = self::searchInPHPSourceFilesOfModulesSubDir($results, $root, 'src', $name, $search_terms, true);
             }
         }
 
@@ -98,7 +98,7 @@ class Helper
     }
 
     /**
-     * Search list of terms in a list of module and return an array of found source files (in one subdir) containing these terms
+     * Search list of terms in a list of module and return an array of found PHP source files (in one subdir) containing these terms
      * The result (list of source files) will be provided as an array with these keys:
      * - module name (primary)
      * - term (secondary)
@@ -111,7 +111,7 @@ class Helper
      *
      * @return array<string, array<string, string[]>>
      */
-    private static function searchInSourceFilesOfModulesSubDir(
+    private static function searchInPHPSourceFilesOfModulesSubDir(
         array $results,
         string $root,
         string $suffix,
@@ -128,7 +128,7 @@ class Helper
 
                 if ($fileInfo->isDir()) {
                     if ($recurse) {
-                        $results = self::searchInSourceFilesOfModulesSubDir(
+                        $results = self::searchInPHPSourceFilesOfModulesSubDir(
                             $results,
                             $root,
                             ($suffix !== '' ? $suffix . DIRECTORY_SEPARATOR : '') . $fileInfo->getFilename(),

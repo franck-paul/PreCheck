@@ -35,8 +35,8 @@ class Version_2_39
         $plugins = Helper::getPlugins();
         $themes  = Helper::getThemes(exclude_distributed: false);   // We may have some old distributed themes copied in current themes folder
 
-        $results_plugins = Helper::searchInSourceFilesOfModules($plugins, $search_terms);
-        $results_themes  = Helper::searchInSourceFilesOfModules($themes, $search_terms);
+        $results_plugins = Helper::searchInPHPSourceFilesOfModules($plugins, $search_terms);
+        $results_themes  = Helper::searchInPHPSourceFilesOfModules($themes, $search_terms);
 
         if ($results_plugins !== [] || $results_themes !== []) {
             $lines_modules = [];
