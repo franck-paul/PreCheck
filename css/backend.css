@@ -2,4 +2,10 @@
   summary {
     margin-block-end: 1em;
   }
+
+  hr {
+    margin-block: 2em;
+    width: 50%;
+    margin-inline: auto;
+  }
 }
