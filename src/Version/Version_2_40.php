@@ -32,7 +32,7 @@ class Version_2_40
             self::checkWidget(),
         ];
 
-        $checks = array_filter($checks, fn ($v): bool => !is_null($v));
+        $checks = array_filter($checks, fn (?Component $v): bool => !is_null($v));
 
         return $checks !== []
             ? (new Set())
