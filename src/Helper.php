@@ -17,6 +17,11 @@ namespace Dotclear\Plugin\PreCheck;
 
 use DirectoryIterator;
 use Dotclear\App;
+use Dotclear\Helper\Html\Form\Component;
+use Dotclear\Helper\Html\Form\Li;
+use Dotclear\Helper\Html\Form\Note;
+use Dotclear\Helper\Html\Form\Set;
+use Dotclear\Helper\Html\Form\Ul;
 use Dotclear\Module\ModuleDefine;
 
 /**
@@ -159,5 +164,140 @@ class Helper
         }
 
         return $results;
+    }
+
+    /**
+     * @param  array<string, array<string, string[]>>       $results_plugins Results found in plugins
+     * @param  array<string, array<string, string[]>>       $results_themes  Results found in themes
+     * @param  array<array-key, array{0: bool, 1: string}>  $before_notes    Notes to be displayed before results
+     * @param  array<array-key, array{0: bool, 1: string}>  $after_notes     Notes to be displayed after results
+     */
+    public static function makeReport(
+        array $results_plugins,
+        array $results_themes,
+        array $before_notes = [],
+        array $after_notes = []
+    ): ?Component {
+        if ($results_plugins !== [] || $results_themes !== []) {
+            $lines_modules = [];
+
+            if ($results_plugins !== []) {
+                $group_module  = (new Ul());
+                $lines_plugins = [];
+
+                foreach ($results_plugins as $plugin => $terms) {
+                    $group_plugin = (new Ul());
+                    $lines_terms  = [];
+
+                    foreach ($terms as $term => $files) {
+                        $group_term  = (new Ul());
+                        $lines_files = [];
+
+                        foreach ($files as $file) {
+                            $lines_files[] = (new Li())
+                                ->text($file);
+                        }
+
+                        $group_term
+                            ->items($lines_files);
+                        $lines_terms[] = (new Li())
+                            ->text(sprintf(
+                                __('<code>%s</code> still present in this file:', '<code>%s</code> still present in these files:', count($lines_files)),
+                                $term
+                            ))
+                            ->items([
+                                $group_term,
+                            ]);
+                    }
+
+                    $group_plugin
+                        ->items($lines_terms);
+                    $lines_plugins[] = (new Li())
+                        ->text(sprintf(__('<strong>%s</strong> plugin:'), $plugin))
+                        ->items([
+                            $group_plugin,
+                        ]);
+                }
+
+                $group_module
+                    ->items($lines_plugins);
+                $lines_modules[] = (new Li())
+                    ->text(__('Plugins:'))
+                    ->items([
+                        $group_module,
+                    ]);
+            }
+
+            if ($results_themes !== []) {
+                $group_module = (new Ul());
+                $lines_themes = [];
+
+                foreach ($results_themes as $theme => $terms) {
+                    $group_theme = (new Ul());
+                    $lines_terms = [];
+
+                    foreach ($terms as $term => $files) {
+                        $group_term  = (new Ul());
+                        $lines_files = [];
+
+                        foreach ($files as $file) {
+                            $lines_files[] = (new Li())
+                                ->text($file);
+                        }
+
+                        $group_term
+                            ->items($lines_files);
+                        $lines_terms[] = (new Li())
+                            ->text(sprintf(
+                                __('<code>%s</code> still present in this file:', '<code>%s</code> still present in these files:', count($lines_files)),
+                                $term
+                            ))
+                            ->items([
+                                $group_term,
+                            ]);
+                    }
+
+                    $group_theme
+                        ->items($lines_terms);
+                    $lines_themes[] = (new Li())
+                        ->text(sprintf(__('<strong>%s</strong> theme:'), $theme))
+                        ->items([
+                            $group_theme,
+                        ]);
+                }
+
+                $group_module
+                    ->items($lines_themes);
+                $lines_modules[] = (new Li())
+                    ->text(__('Themes:'))
+                    ->items([
+                        $group_module,
+                    ]);
+            }
+
+            $befores = [];
+            foreach ($before_notes as $note) {
+                $befores[] = (new Note())
+                    ->class($note[0] ? 'warn' : 'info')
+                    ->text($note[1]);
+            }
+
+            $afters = [];
+            foreach ($after_notes as $note) {
+                $afters[] = (new Note())
+                    ->class($note[0] ? 'warn' : 'info')
+                    ->text($note[1]);
+            }
+
+            return (new Set())
+                ->items([
+                    ... $befores,
+                    (new Ul())
+                        ->items($lines_modules),
+                    ... $afters,
+                ]);
+        }
+
+        return null;
     }
 }

@@ -16,11 +16,8 @@ declare(strict_types=1);
 namespace Dotclear\Plugin\PreCheck\Version;
 
 use Dotclear\Helper\Html\Form\Component;
-use Dotclear\Helper\Html\Form\Li;
-use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Set;
 use Dotclear\Helper\Html\Form\Single;
-use Dotclear\Helper\Html\Form\Ul;
 use Dotclear\Plugin\PreCheck\Helper;
 
 class Version_2_39
@@ -51,119 +48,23 @@ class Version_2_39
         $plugins = Helper::getPlugins();
         $themes  = Helper::getThemes(exclude_distributed: false);   // We may have some old distributed themes copied in current themes folder
 
-        $results_plugins = Helper::searchInPHPSourceFilesOfModules($plugins, $search_terms);
-        $results_themes  = Helper::searchInPHPSourceFilesOfModules($themes, $search_terms);
-
-        if ($results_plugins !== [] || $results_themes !== []) {
-            $lines_modules = [];
-
-            if ($results_plugins !== []) {
-                $group_module  = (new Ul());
-                $lines_plugins = [];
-
-                foreach ($results_plugins as $plugin => $terms) {
-                    $group_plugin = (new Ul());
-                    $lines_terms  = [];
-
-                    foreach ($terms as $term => $files) {
-                        $group_term  = (new Ul());
-                        $lines_files = [];
-
-                        foreach ($files as $file) {
-                            $lines_files[] = (new Li())
-                                ->text($file);
-                        }
-
-                        $group_term
-                            ->items($lines_files);
-                        $lines_terms[] = (new Li())
-                            ->text(sprintf(
-                                __('<code>%s</code> still present in this file:', '<code>%s</code> still present in these files:', count($lines_files)),
-                                $term
-                            ))
-                            ->items([
-                                $group_term,
-                            ]);
-                    }
-
-                    $group_plugin
-                        ->items($lines_terms);
-                    $lines_plugins[] = (new Li())
-                        ->text(sprintf(__('<strong>%s</strong> plugin:'), $plugin))
-                        ->items([
-                            $group_plugin,
-                        ]);
-                }
-
-                $group_module
-                    ->items($lines_plugins);
-                $lines_modules[] = (new Li())
-                    ->text(__('Plugins:'))
-                    ->items([
-                        $group_module,
-                    ]);
-            }
-
-            if ($results_themes !== []) {
-                $group_module = (new Ul());
-                $lines_themes = [];
-
-                foreach ($results_themes as $theme => $terms) {
-                    $group_theme = (new Ul());
-                    $lines_terms = [];
-
-                    foreach ($terms as $term => $files) {
-                        $group_term  = (new Ul());
-                        $lines_files = [];
-
-                        foreach ($files as $file) {
-                            $lines_files[] = (new Li())
-                                ->text($file);
-                        }
-
-                        $group_term
-                            ->items($lines_files);
-                        $lines_terms[] = (new Li())
-                            ->text(sprintf(
-                                __('<code>%s</code> still present in this file:', '<code>%s</code> still present in these files:', count($lines_files)),
-                                $term
-                            ))
-                            ->items([
-                                $group_term,
-                            ]);
-                    }
-
-                    $group_theme
-                        ->items($lines_terms);
-                    $lines_themes[] = (new Li())
-                        ->text(sprintf(__('<strong>%s</strong> theme:'), $theme))
-                        ->items([
-                            $group_theme,
-                        ]);
-                }
-
-                $group_module
-                    ->items($lines_themes);
-                $lines_modules[] = (new Li())
-                    ->text(__('Themes:'))
-                    ->items([
-                        $group_module,
-                    ]);
-            }
-
-            return (new Set())
-                ->items([
-                    (new Note())
-                        ->class('warn')
-                        ->text(__('The <code>App::url()->type</code> property is no longer accessible as of <strong>Dotclear 2.39</strong> (released on August 13, 2026), but is still present in the following modules.<br>You should review and update them (by replacing <code>App::url()->type</code> with <code>App::url()->getType()</code>).')),
-                    (new Ul())
-                        ->items($lines_modules),
-                    (new Note())
-                        ->class('info')
-                        ->text(__('Some distributed themes may appear in this list if you copied them to a directory other than Dotclear\'s <var>themes</var> directory.<br>In that case, we recommend deleting them from your custom directory and using the button labeled “ Add the distributed themes here ” on the blog\'s appearance page.')),
-                ]);
-        }
-
-        return null;
+        return Helper::makeReport(
+            Helper::searchInPHPSourceFilesOfModules($plugins, $search_terms),
+            Helper::searchInPHPSourceFilesOfModules($themes, $search_terms),
+            // Before
+            [
+                [
+                    true,   // warning
+                    __('The <code>App::url()->type</code> property is no longer accessible as of <strong>Dotclear 2.39</strong> (released on August 13, 2026), but is still present in the following modules.<br>You should review and update them (by replacing <code>App::url()->type</code> with <code>App::url()->getType()</code>).'),
+                ],
+            ],
+            // After
+            [
+                [
+                    false,
+                    __('Some distributed themes may appear in this list if you copied them to a directory other than Dotclear\'s <var>themes</var> directory.<br>In that case, we recommend deleting them from your custom directory and using the button labeled “ Add the distributed themes here ” on the blog\'s appearance page.'),
+                ],
+            ],
+        );
     }
 }
