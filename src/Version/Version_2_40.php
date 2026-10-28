@@ -29,7 +29,8 @@ class Version_2_40
     {
         $checks = [
             self::checkBackend(),
-            self::checkWidget(),
+            self::checkWidgetHomeOnly(),
+            self::checkWidgetSetting(),
         ];
 
         $checks = array_filter($checks, fn (?Component $v): bool => !is_null($v));
@@ -173,7 +174,7 @@ class Version_2_40
         return null;
     }
 
-    public static function checkWidget(): ?Component
+    public static function checkWidgetHomeOnly(): ?Component
     {
         // Check if there any usage of WidgetsElement::checkHomeOnly() with 2nd and/or 3rd argument which are no longer taken into account
 
@@ -290,6 +291,130 @@ class Version_2_40
                     (new Note())
                         ->class('warn')
                         ->text(__('The 2nd and 3rd argument of <code>WidgetsElement::checkHomeOnly()</code> are no longer taken into account as of <strong>Dotclear 2.40</strong>.')),
+                    (new Ul())
+                        ->items($lines_modules),
+                ]);
+        }
+
+        return null;
+    }
+
+    public static function checkWidgetSetting(): ?Component
+    {
+        // Check if there any usage of WidgetsElement::setting() with 6th argument which are no longer taken into account
+
+        $search_terms = [
+            'WidgetsElement::setting(<6 arguments>)' => '/setting\((?:(?>(?:[^,()\[\]]++|(\((?:[^()]*+|(?1))*\))|(\[(?:[^\[\]]*+|(?2))*\]))*+),\s*){5}\K(?!\s*\))(?> (?:[^,()\[\]]++|(?1)|(?2))*+)/m',
+        ];
+
+        $plugins = Helper::getPlugins();
+        $themes  = Helper::getThemes(exclude_distributed: false);   // We may have some old distributed themes copied in current themes folder
+
+        $results_plugins = Helper::searchInPHPSourceFilesOfModules($plugins, $search_terms);
+        $results_themes  = Helper::searchInPHPSourceFilesOfModules($themes, $search_terms);
+
+        if ($results_plugins !== [] || $results_themes !== []) {
+            $lines_modules = [];
+
+            if ($results_plugins !== []) {
+                $group_module  = (new Ul());
+                $lines_plugins = [];
+
+                foreach ($results_plugins as $plugin => $terms) {
+                    $group_plugin = (new Ul());
+                    $lines_terms  = [];
+
+                    foreach ($terms as $term => $files) {
+                        $group_term  = (new Ul());
+                        $lines_files = [];
+
+                        foreach ($files as $file) {
+                            $lines_files[] = (new Li())
+                                ->text($file);
+                        }
+
+                        $group_term
+                            ->items($lines_files);
+                        $lines_terms[] = (new Li())
+                            ->text(sprintf(
+                                __('<code>%s</code> still present in this file:', '<code>%s</code> still present in these files:', count($lines_files)),
+                                $term
+                            ))
+                            ->items([
+                                $group_term,
+                            ]);
+                    }
+
+                    $group_plugin
+                        ->items($lines_terms);
+                    $lines_plugins[] = (new Li())
+                        ->text(sprintf(__('<strong>%s</strong> plugin:'), $plugin))
+                        ->items([
+                            $group_plugin,
+                        ]);
+                }
+
+                $group_module
+                    ->items($lines_plugins);
+                $lines_modules[] = (new Li())
+                    ->text(__('Plugins:'))
+                    ->items([
+                        $group_module,
+                    ]);
+            }
+
+            if ($results_themes !== []) {
+                $group_module = (new Ul());
+                $lines_themes = [];
+
+                foreach ($results_themes as $theme => $terms) {
+                    $group_theme = (new Ul());
+                    $lines_terms = [];
+
+                    foreach ($terms as $term => $files) {
+                        $group_term  = (new Ul());
+                        $lines_files = [];
+
+                        foreach ($files as $file) {
+                            $lines_files[] = (new Li())
+                                ->text($file);
+                        }
+
+                        $group_term
+                            ->items($lines_files);
+                        $lines_terms[] = (new Li())
+                            ->text(sprintf(
+                                __('<code>%s</code> still present in this file:', '<code>%s</code> still present in these files:', count($lines_files)),
+                                $term
+                            ))
+                            ->items([
+                                $group_term,
+                            ]);
+                    }
+
+                    $group_theme
+                        ->items($lines_terms);
+                    $lines_themes[] = (new Li())
+                        ->text(sprintf(__('<strong>%s</strong> theme:'), $theme))
+                        ->items([
+                            $group_theme,
+                        ]);
+                }
+
+                $group_module
+                    ->items($lines_themes);
+                $lines_modules[] = (new Li())
+                    ->text(__('Themes:'))
+                    ->items([
+                        $group_module,
+                    ]);
+            }
+
+            return (new Set())
+                ->items([
+                    (new Note())
+                        ->class('warn')
+                        ->text(__('The 6th argument of <code>WidgetsElement::setting()</code> are no longer taken into account as of <strong>Dotclear 2.40</strong>.')),
                     (new Ul())
                         ->items($lines_modules),
                 ]);

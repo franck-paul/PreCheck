@@ -19,12 +19,28 @@ use Dotclear\Helper\Html\Form\Component;
 use Dotclear\Helper\Html\Form\Li;
 use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Set;
+use Dotclear\Helper\Html\Form\Single;
 use Dotclear\Helper\Html\Form\Ul;
 use Dotclear\Plugin\PreCheck\Helper;
 
 class Version_2_41
 {
     public static function check(): ?Component
+    {
+        $checks = [
+            self::checkOldClasses(),
+        ];
+
+        $checks = array_filter($checks, fn (?Component $v): bool => !is_null($v));
+
+        return $checks !== []
+            ? (new Set())
+                ->separator((new Single('hr'))->render())
+                ->items($checks)
+            : null;
+    }
+
+    public static function checkOldClasses(): ?Component
     {
         // Check usage of dcCore and dcUtils in modules (plugins/themes)
 
