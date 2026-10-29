@@ -13,7 +13,7 @@ declare(strict_types=1);
 use Dotclear\Helper\L10n;
 
 L10n::$locales['Pre check current Dotclear installation before upgrading it'] = '';
-L10n::$locales['<code>%s</code> still present in this file:'] = [
+L10n::$locales['<code>%s</code> presents in this file:'] = [
 	'',
 	'',
 ];
