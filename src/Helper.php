@@ -32,7 +32,10 @@ class Helper
     // Helper methods
 
     /**
-     * @param  bool   $enabled_only Get only enabled plugins
+     * Get list of installed plugins
+     *
+     * @param  bool   $enabled_only         Get only enabled plugins
+     * @param  bool   $exclude_distributed  Exclude distributed plugins
      *
      * @return ModuleDefine[]
      */
@@ -54,7 +57,10 @@ class Helper
     }
 
     /**
-     * @param  bool   $enabled_only Get only enabled themes
+     * Get list of installed themes
+     *
+     * @param  bool   $enabled_only         Get only enabled themes
+     * @param  bool   $exclude_distributed  Exclude distributed themes
      *
      * @return ModuleDefine[]
      */
@@ -167,6 +173,8 @@ class Helper
     }
 
     /**
+     * Make a report (Component to be rendered) using the results arrays provided by searchInPHPSourceFilesOfModules()
+     *
      * @param  array<string, array<string, string[]>>       $results_plugins Results found in plugins
      * @param  array<string, array<string, string[]>>       $results_themes  Results found in themes
      * @param  array<array-key, array{0: bool, 1: string}>  $before_notes    Notes to be displayed before results

@@ -73,7 +73,9 @@ class Manage
                     $results[] = (new Details('precheck-' . $precheck['version']))
                         ->open(true)
                         ->summary((new Summary(sprintf(__('Some verifications requested by Dotclear <strong>%1$s</strong> should be done before upgrading:'), $precheck['version']))))
-                        ->items([$result]);
+                        ->items([
+                            $result,
+                        ]);
                     // Change status to show details in render
                     self::$status = false;
                 }
@@ -121,6 +123,8 @@ class Manage
     }
 
     /**
+     * Get list of PreCheck to do in the Version subfolder
+     *
      * @return  list<array{version: string, file: non-falsy-string, class: non-falsy-string}>
      */
     private static function getPreCheckVersions(): array
