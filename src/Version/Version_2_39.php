@@ -88,7 +88,7 @@ class Version_2_39
             [
                 [
                     true,   // warning
-                    __('The <code>form::???() methods are (strongly) deprecated as of <strong>Dotclear 2.26</strong> (released on May 13, 2023), but are still used in the following modules.<br>You should review and update them (by using <code>Helper/Html/Form/...</code>).'),
+                    __('The <code>form::???()</code> methods are (strongly) deprecated as of <strong>Dotclear 2.26</strong> (released on May 13, 2023), but are still used in the following modules.<br>You should review and update them (by using <code>Helper/Html/Form/...</code>).'),
                 ],
             ],
             // After

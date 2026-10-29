@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 PreCheck module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 16:34+0100\n"
+"POT-Creation-Date: 2026-10-29 16:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -72,7 +72,7 @@ msgid "Some distributed themes may appear in this list if you copied them to a d
 msgstr ""
 
 #: ../git-plugins/PreCheck/src/Version/Version_2_39.php:91
-msgid "The <code>form::???() methods are (strongly) deprecated as of <strong>Dotclear 2.26</strong> (released on May 13, 2023), but are still used in the following modules.<br>You should review and update them (by using <code>Helper/Html/Form/...</code>)."
+msgid "The <code>form::???()</code> methods are (strongly) deprecated as of <strong>Dotclear 2.26</strong> (released on May 13, 2023), but are still used in the following modules.<br>You should review and update them (by using <code>Helper/Html/Form/...</code>)."
 msgstr ""
 
 #: ../git-plugins/PreCheck/src/Version/Version_2_39.php:123
