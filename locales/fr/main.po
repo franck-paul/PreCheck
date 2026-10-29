@@ -28,7 +28,7 @@ msgstr ""
 #, php-format
 msgid "<code>%s</code> presents in this file:"
 msgid_plural "<code>%s</code> present in these files:"
-msgstr[0] "<code>%s</code> présente dans ce fichier :"
+msgstr[0] "<code>%s</code> présent dans ce fichier :"
 msgstr[1] "<code>%s</code> présents dans ces fichiers :"
 msgstr[2] "<code>%s</code> présents dans ces fichiers :"
 
