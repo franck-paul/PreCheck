@@ -28,6 +28,7 @@ class Version_2_40
             self::checkBackend(),
             self::checkWidgetHomeOnly(),
             self::checkWidgetSetting(),
+            self::checkDeprecatedBehaviors(),
         ];
 
         $checks = array_filter($checks, fn (?Component $v): bool => !is_null($v));
@@ -120,6 +121,32 @@ class Version_2_40
                 [
                     true,   // warning
                     __('The 6th argument of <code>WidgetsElement::setting()</code> are no longer taken into account as of <strong>Dotclear 2.40</strong>.'),
+                ],
+            ],
+        );
+    }
+
+    public static function checkDeprecatedBehaviors(): ?Component
+    {
+        // Check if there any usage of coreContentFilter behavior
+
+        $search_terms = [
+            'coreContentFilter'          => '/\'coreContentFilter\'/m',
+            'adminSimpleMenuBeforeEdit'  => '/\'adminSimpleMenuBeforeEdit\'/m',
+            'adminPageNotificationError' => '/\'adminPageNotificationError\'/m',
+        ];
+
+        $plugins = Helper::getPlugins();
+        $themes  = Helper::getThemes(exclude_distributed: false);   // We may have some old distributed themes copied in current themes folder
+
+        return Helper::makeReport(
+            Helper::searchInPHPSourceFilesOfModules($plugins, $search_terms),
+            Helper::searchInPHPSourceFilesOfModules($themes, $search_terms),
+            // Before
+            [
+                [
+                    false,   // info
+                    __('The usage of these behaviors should be removed or replaced as of <strong>Dotclear 2.40</strong> (see CHANGELOG or code).'),
                 ],
             ],
         );

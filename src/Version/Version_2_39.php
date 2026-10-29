@@ -26,6 +26,8 @@ class Version_2_39
     {
         $checks = [
             self::checkUrlType(),
+            self::checkOldForm(),
+            self::checkDeprecatedBehaviors(),
         ];
 
         $checks = array_filter($checks, fn (?Component $v): bool => !is_null($v));
@@ -63,6 +65,62 @@ class Version_2_39
                 [
                     false,
                     __('Some distributed themes may appear in this list if you copied them to a directory other than Dotclear\'s <var>themes</var> directory.<br>In that case, we recommend deleting them from your custom directory and using the button labeled “ Add the distributed themes here ” on the blog\'s appearance page.'),
+                ],
+            ],
+        );
+    }
+
+    public static function checkOldForm(): ?Component
+    {
+        // Check if there any reference to form::... which should be replaced by Helper/Html/Form/Component
+
+        $search_terms = [
+            'form::???()' => '/App::form\(/m',
+        ];
+
+        $plugins = Helper::getPlugins();
+        $themes  = Helper::getThemes(exclude_distributed: false);   // We may have some old distributed themes copied in current themes folder
+
+        return Helper::makeReport(
+            Helper::searchInPHPSourceFilesOfModules($plugins, $search_terms),
+            Helper::searchInPHPSourceFilesOfModules($themes, $search_terms),
+            // Before
+            [
+                [
+                    true,   // warning
+                    __('The <code>form::???() methods are (strongly) deprecated as of <strong>Dotclear 2.26</strong> (released on May 13, 2023), but are still used in the following modules.<br>You should review and update them (by using <code>Helper/Html/Form/...</code>).'),
+                ],
+            ],
+            // After
+            [
+                [
+                    false,
+                    __('Some distributed themes may appear in this list if you copied them to a directory other than Dotclear\'s <var>themes</var> directory.<br>In that case, we recommend deleting them from your custom directory and using the button labeled “ Add the distributed themes here ” on the blog\'s appearance page.'),
+                ],
+            ],
+        );
+    }
+
+    public static function checkDeprecatedBehaviors(): ?Component
+    {
+        // Check if there any usage of coreContentFilter behavior
+
+        $search_terms = [
+            'adminPageNotification' => '/\'adminPageNotification\'/m',
+            'adminFiltersListsV2'   => '/\'adminFiltersListsV2\'/m',
+        ];
+
+        $plugins = Helper::getPlugins();
+        $themes  = Helper::getThemes(exclude_distributed: false);   // We may have some old distributed themes copied in current themes folder
+
+        return Helper::makeReport(
+            Helper::searchInPHPSourceFilesOfModules($plugins, $search_terms),
+            Helper::searchInPHPSourceFilesOfModules($themes, $search_terms),
+            // Before
+            [
+                [
+                    false,   // info
+                    __('The usage of these behaviors should be removed or replaced as of <strong>Dotclear 2.40</strong> (see CHANGELOG or code).'),
                 ],
             ],
         );
