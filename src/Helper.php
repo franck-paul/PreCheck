@@ -21,6 +21,7 @@ use Dotclear\Helper\Html\Form\Component;
 use Dotclear\Helper\Html\Form\Li;
 use Dotclear\Helper\Html\Form\Note;
 use Dotclear\Helper\Html\Form\Set;
+use Dotclear\Helper\Html\Form\Strong;
 use Dotclear\Helper\Html\Form\Ul;
 use Dotclear\Module\ModuleDefine;
 
@@ -210,7 +211,7 @@ class Helper
                             ->items($lines_files);
                         $lines_terms[] = (new Li())
                             ->text(sprintf(
-                                __('<code>%s</code> still present in this file:', '<code>%s</code> still present in these files:', count($lines_files)),
+                                __('<code>%s</code> presents in this file:', '<code>%s</code> present in these files:', count($lines_files)),
                                 $term
                             ))
                             ->items([
@@ -230,8 +231,8 @@ class Helper
                 $group_module
                     ->items($lines_plugins);
                 $lines_modules[] = (new Li())
-                    ->text(__('Plugins:'))
                     ->items([
+                        (new Strong(__('Plugins:'))),
                         $group_module,
                     ]);
             }
@@ -257,7 +258,7 @@ class Helper
                             ->items($lines_files);
                         $lines_terms[] = (new Li())
                             ->text(sprintf(
-                                __('<code>%s</code> still present in this file:', '<code>%s</code> still present in these files:', count($lines_files)),
+                                __('<code>%s</code> presents in this file:', '<code>%s</code> present in these files:', count($lines_files)),
                                 $term
                             ))
                             ->items([
@@ -277,8 +278,8 @@ class Helper
                 $group_module
                     ->items($lines_themes);
                 $lines_modules[] = (new Li())
-                    ->text(__('Themes:'))
                     ->items([
+                        (new Strong(__('Themes:'))),
                         $group_module,
                     ]);
             }
