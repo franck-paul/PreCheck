@@ -13,10 +13,10 @@ declare(strict_types=1);
 use Dotclear\Helper\L10n;
 
 L10n::$locales['Pre check current Dotclear installation before upgrading it'] = 'Vérifiez au préalable votre installation actuelle de Dotclear avant de la mettre à jour';
-L10n::$locales['<code>%s</code> still present in this file:'] = [
-	'<code>%s</code> toujours présents dans ce fichier :',
-	'<code>%s</code> toujours présents dans ces fichiers :',
-	'<code>%s</code> toujours présents dans ces fichiers :',
+L10n::$locales['<code>%s</code> presents in this file:'] = [
+	'<code>%s</code> présent dans ce fichier :',
+	'<code>%s</code> présents dans ces fichiers :',
+	'<code>%s</code> présents dans ces fichiers :',
 ];
 L10n::$locales['<strong>%s</strong> plugin:'] = 'Plugin <strong>%s</strong> :';
 L10n::$locales['Plugins:'] = 'Plugins :';
