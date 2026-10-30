@@ -1,11 +1,11 @@
 <modules xmlns:da="http://dotaddict.org/da/">
   <module id="PreCheck">
     <name>PreCheck</name>
-    <version>1.8</version>
+    <version>1.9</version>
     <author>Franck Paul</author>
     <desc>Pre check before upgrading</desc>
-    <date>2026-10-29T17:03:09+0100</date>
-    <file>https://github.com/franck-paul/PreCheck/releases/download/1.8/plugin-PreCheck-1.8.zip</file>
+    <date>2026-10-30T08:42:10+0100</date>
+    <file>https://github.com/franck-paul/PreCheck/releases/download/1.9/plugin-PreCheck-1.9.zip</file>
     <da:dcmin>2.38</da:dcmin>
     <da:details>https://dotclear.org/plugin/detail/PreCheck</da:details>
     <da:support>https://github.com/franck-paul/PreCheck</da:support>
