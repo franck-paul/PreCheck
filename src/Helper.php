@@ -45,12 +45,9 @@ class Helper
         $list   = [];
         $search = $enabled_only ? ['state' => ModuleDefine::STATE_ENABLED] : [];
         foreach (App::plugins()->getDefines($search) as $define) {
-            if (!$exclude_distributed || !$define->get('distributed')) {
-                // Not distributed module
-                if ($define->get('name') !== My::id()) {
-                    // Not this one so add it
-                    $list[] = $define;
-                }
+            if ((!$exclude_distributed || !$define->get('distributed')) && $define->get('name') !== My::id()) {
+                // Not distributed module and not this one so add it
+                $list[] = $define;
             }
         }
 
