@@ -105,7 +105,7 @@ msgid ""
 "The usage of these behaviors should be removed or replaced as of "
 "<strong>Dotclear 2.40</strong> (see CHANGELOG or code)."
 msgstr ""
-"L'utilisation de ces <i lang=\"en\">behaviors</i> doit être supprimée ou "
+"L'utilisation de ces <i lang=\"en\">behaviors</i> devrait être supprimée ou "
 "remplacée à partir de <strong>la version 2.40 de Dotclear</strong> (voir le "
 "fichier CHANGELOG ou le code)."
 
