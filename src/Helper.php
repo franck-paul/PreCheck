@@ -45,7 +45,7 @@ class Helper
         $list   = [];
         $search = $enabled_only ? ['state' => ModuleDefine::STATE_ENABLED] : [];
         foreach (App::plugins()->getDefines($search) as $define) {
-            if ((!$exclude_distributed || !$define->get('distributed')) && $define->get('name') !== My::id()) {
+            if ((!$exclude_distributed || !(bool) $define->get('distributed')) && $define->get('name') !== My::id()) {
                 // Not distributed module and not this one so add it
                 $list[] = $define;
             }
@@ -67,7 +67,7 @@ class Helper
         $list   = [];
         $search = $enabled_only ? ['state' => ModuleDefine::STATE_ENABLED] : [];
         foreach (App::themes()->getDefines($search) as $define) {
-            if (!$exclude_distributed || !$define->get('distributed')) {
+            if (!$exclude_distributed || !(bool) $define->get('distributed')) {
                 // Not distributed module
                 $list[] = $define;
             }
@@ -158,7 +158,7 @@ class Helper
                     $content = file_get_contents($realpath);
                     if ($content !== false) {
                         foreach ($search_terms as $key => $term) {
-                            if (preg_match($term, $content)) {
+                            if ((bool) preg_match($term, $content)) {
                                 $results[$name][$key][] = ($suffix !== '' ? $suffix . DIRECTORY_SEPARATOR : '') . $fileInfo->getFilename();
                             }
                         }
