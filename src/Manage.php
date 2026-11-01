@@ -21,6 +21,7 @@ use Dotclear\Helper\Html\Form\Component;
 use Dotclear\Helper\Html\Form\Details;
 use Dotclear\Helper\Html\Form\Div;
 use Dotclear\Helper\Html\Form\Note;
+use Dotclear\Helper\Html\Form\Single;
 use Dotclear\Helper\Html\Form\Summary;
 use Dotclear\Helper\Html\Html;
 use Dotclear\Helper\Process\TraitProcess;
@@ -50,7 +51,9 @@ class Manage
             return false;
         }
 
-        self::$div    = (new Div('precheck'));
+        self::$div = (new Div('precheck'))
+            ->separator((new Single('hr'))->render());
+
         self::$status = true;
         $results      = [];
 
@@ -72,7 +75,7 @@ class Manage
                     // Some actions should be taken before upgrading
                     $results[] = (new Details('precheck-' . $precheck['version']))
                         ->open(true)
-                        ->summary((new Summary(sprintf(__('Some verifications requested by Dotclear <strong>%1$s</strong> should be done before upgrading:'), $precheck['version']))))
+                        ->summary((new Summary(sprintf(__('Some verifications requested by Dotclear <strong>%1$s</strong> should be done before upgrading to this version:'), $precheck['version']))))
                         ->items([
                             $result,
                         ]);

@@ -5,7 +5,12 @@
 
   hr {
     margin-block: 2em;
-    width: 50%;
     margin-inline: auto;
+  }
+
+  details {
+    hr {
+      width: 50%;
+    }
   }
 }
