@@ -75,7 +75,7 @@ class Version_2_39
         // Check if there any reference to form::... which should be replaced by Helper/Html/Form/Component
 
         $search_terms = [
-            'form::???()' => '/App::form\(/m',
+            'form::???()' => '/\bform::/m',
         ];
 
         $plugins = Helper::getPlugins();
@@ -87,7 +87,7 @@ class Version_2_39
             // Before
             [
                 [
-                    true,   // warning
+                    false,   // warning
                     __('The <code>form::???()</code> methods are (strongly) deprecated as of <strong>Dotclear 2.26</strong> (released on May 13, 2023), but are still used in the following modules.<br>You should review and update them (by using <code>Helper/Html/Form/...</code>).'),
                 ],
             ],

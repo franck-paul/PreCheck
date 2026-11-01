@@ -33,3 +33,4 @@ L10n::$locales['Note that these modifications do not cause any issues with Dotcl
 L10n::$locales['The 2nd and 3rd argument of <code>WidgetsElement::checkHomeOnly()</code> are no longer taken into account as of <strong>Dotclear 2.40</strong>.'] = '';
 L10n::$locales['The 6th argument of <code>WidgetsElement::setting()</code> are no longer taken into account as of <strong>Dotclear 2.40</strong>.'] = '';
 L10n::$locales['<code>dcCore</code> and <code>dcUtils</code> are deprecated since <strong>Dotclear 2.28</strong> (published on November 15, 2023) and are still present in the following modules.<br>You should review and update them.'] = '';
+L10n::$locales['<code>form</code> and <code>formSelectOption</code> classes are deprecated since <strong>Dotclear 2.26</strong> (published on May 13, 2023) and are still present in the following modules.<br>You must review and update them by using their replacements (see <code>Dotclear/Helper/Html/Form/...</code>).'] = '';
