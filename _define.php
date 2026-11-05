@@ -18,9 +18,9 @@ if (isset($this) && is_object($this) && method_exists($this, 'registerModule') &
         'PreCheck',
         'Pre check current Dotclear installation before upgrading it',
         'Franck Paul',
-        '1.10',
+        '1.11',
         [
-            'date'        => '2026-11-01T06:26:34+0100',
+            'date'        => '2026-11-05T15:07:03+0100',
             'requires'    => [['core', '2.38']],
             'permissions' => 'My',
             'type'        => 'plugin',
