@@ -93,8 +93,13 @@ class Helper
 
         foreach ($modules as $module) {
             $root = $module->get('root');
-            $name = $module->get('name');
-            if (is_string($name) && is_string($root) && is_dir($root)) {
+            if (is_string($root) && is_dir($root)) {
+                $id   = $module->getId();
+                $name = is_string($name = $module->get('name')) ? $name : $id;
+                if ($name !== $id) {
+                    $name = sprintf('%1$s (%2$s)', $name, $id);
+                }
+
                 // Scan root folder
                 $results = self::searchInPHPSourceFilesOfModulesSubDir($results, $root, '', $name, $search_terms);
 
