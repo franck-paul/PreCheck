@@ -1,1 +1,1 @@
-#precheck{& summary{margin-block-end:1em}& hr{margin-block:2em;margin-inline:auto}& details{& hr{width:50%}}}
+#precheck{& summary{margin-block-end:1em;&.precheck_warning{color:var(--required)}}& hr{margin-block:2em;margin-inline:auto}& details{& hr{width:50%}}}

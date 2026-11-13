@@ -68,13 +68,21 @@ class Manage
 
         // Execute each precheck and add its result to the main result (if their version is higher than current)
         foreach ($prechecks as $precheck) {
+            $warning = false;
             require_once $precheck['file'];
-            $result = $precheck['class']::check();
+            $result = $precheck['class']::check($warning);
             if ($result instanceof Component) {
                 // Some actions should be taken before upgrading
                 $results[] = (new Details('precheck-' . $precheck['version']))
                     ->open(true)
-                    ->summary((new Summary(sprintf(__('Some verifications requested by Dotclear <strong>%1$s</strong> should be done before upgrading to this version:'), $precheck['version']))))
+                    ->summary(
+                        // @phpstan-ignore ternary.alwaysFalse ($warning is passed by reference to check() method and may be modified)
+                        (new Summary(sprintf($warning
+                        ? __('Some checks requested by Dotclear <strong>%1$s</strong> must be performed before upgrading to this version:')
+                        : __('Some of the recommended checks for Dotclear <strong>%1$s</strong> will need to be performed with this version:'), $precheck['version'])))
+                            // @phpstan-ignore ternary.alwaysFalse ($warning is passed by reference to check() method and may be modified)
+                            ->class($warning ? 'precheck_warning' : '')
+                    )
                     ->items([
                         $result,
                     ]);

@@ -22,13 +22,13 @@ use Dotclear\Plugin\PreCheck\Helper;
 
 class Version_2_40
 {
-    public static function check(): ?Component
+    public static function check(bool &$warning): ?Component
     {
         $checks = [
-            self::checkBackend(),
-            self::checkWidgetHomeOnly(),
-            self::checkWidgetSetting(),
-            self::checkDeprecatedBehaviors(),
+            self::checkBackend($warning),
+            self::checkWidgetHomeOnly($warning),
+            self::checkWidgetSetting($warning),
+            self::checkDeprecatedBehaviors($warning),
         ];
 
         $checks = array_filter($checks, fn (?Component $v): bool => !is_null($v));
@@ -40,7 +40,7 @@ class Version_2_40
             : null;
     }
 
-    public static function checkBackend(): ?Component
+    public static function checkBackend(bool &$warning): ?Component
     {
         // Check if there any reference to App::backend()->popup === 1 which should be replaced by App::backend()->getPopup()
         // and to App::backend()->plugin_id === 'admin.blog.theme' which should be replaced by MediaItem::isPopup()
@@ -53,7 +53,7 @@ class Version_2_40
         $plugins = Helper::getPlugins();
         $themes  = Helper::getThemes(exclude_distributed: false);   // We may have some old distributed themes copied in current themes folder
 
-        return Helper::makeReport(
+        $report = Helper::makeReport(
             Helper::searchInPHPSourceFilesOfModules($plugins, $search_terms),
             Helper::searchInPHPSourceFilesOfModules($themes, $search_terms),
             // Before
@@ -75,9 +75,15 @@ class Version_2_40
                 ],
             ],
         );
+
+        if ($report instanceof Component) {
+            $warning = true;
+        }
+
+        return $report;
     }
 
-    public static function checkWidgetHomeOnly(): ?Component
+    public static function checkWidgetHomeOnly(bool &$warning): ?Component
     {
         // Check if there any usage of WidgetsElement::checkHomeOnly() with 2nd and/or 3rd argument which are no longer taken into account
 
@@ -89,7 +95,7 @@ class Version_2_40
         $plugins = Helper::getPlugins();
         $themes  = Helper::getThemes(exclude_distributed: false);   // We may have some old distributed themes copied in current themes folder
 
-        return Helper::makeReport(
+        $report = Helper::makeReport(
             Helper::searchInPHPSourceFilesOfModules($plugins, $search_terms),
             Helper::searchInPHPSourceFilesOfModules($themes, $search_terms),
             // Before
@@ -100,9 +106,15 @@ class Version_2_40
                 ],
             ],
         );
+
+        if ($report instanceof Component) {
+            $warning = true;
+        }
+
+        return $report;
     }
 
-    public static function checkWidgetSetting(): ?Component
+    public static function checkWidgetSetting(bool &$warning): ?Component
     {
         // Check if there any usage of WidgetsElement::setting() with 6th argument which are no longer taken into account
 
@@ -113,7 +125,7 @@ class Version_2_40
         $plugins = Helper::getPlugins();
         $themes  = Helper::getThemes(exclude_distributed: false);   // We may have some old distributed themes copied in current themes folder
 
-        return Helper::makeReport(
+        $report = Helper::makeReport(
             Helper::searchInPHPSourceFilesOfModules($plugins, $search_terms),
             Helper::searchInPHPSourceFilesOfModules($themes, $search_terms),
             // Before
@@ -124,9 +136,15 @@ class Version_2_40
                 ],
             ],
         );
+
+        if ($report instanceof Component) {
+            $warning = true;
+        }
+
+        return $report;
     }
 
-    public static function checkDeprecatedBehaviors(): ?Component
+    public static function checkDeprecatedBehaviors(bool &$warning): ?Component
     {
         // Check if there any usage of coreContentFilter behavior
 

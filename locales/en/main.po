@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 PreCheck module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-01 09:12+0100\n"
+"POT-Creation-Date: 2026-11-13 13:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,7 +40,11 @@ msgid "Themes:"
 msgstr ""
 
 #, php-format
-msgid "Some verifications requested by Dotclear <strong>%1$s</strong> should be done before upgrading to this version:"
+msgid "Some checks requested by Dotclear <strong>%1$s</strong> must be performed before upgrading to this version:"
+msgstr ""
+
+#, php-format
+msgid "Some of the recommended checks for Dotclear <strong>%1$s</strong> will need to be performed with this version:"
 msgstr ""
 
 msgid "Pre check"

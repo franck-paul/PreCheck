@@ -22,10 +22,10 @@ use Dotclear\Plugin\PreCheck\Helper;
 
 class Version_2_42
 {
-    public static function check(): ?Component
+    public static function check(bool &$warning): ?Component
     {
         $checks = [
-            self::checkOldClasses(),
+            self::checkOldClasses($warning),
         ];
 
         $checks = array_filter($checks, fn (?Component $v): bool => !is_null($v));
@@ -37,7 +37,7 @@ class Version_2_42
             : null;
     }
 
-    public static function checkOldClasses(): ?Component
+    public static function checkOldClasses(bool &$warning): ?Component
     {
         // Check usage of form in modules (plugins/themes)
 
@@ -63,7 +63,7 @@ class Version_2_42
         $plugins = Helper::getPlugins();
         $themes  = Helper::getThemes(exclude_distributed: false);   // We may have some old distributed themes copied in current themes folder
 
-        return Helper::makeReport(
+        $report = Helper::makeReport(
             Helper::searchInPHPSourceFilesOfModules($plugins, $search_terms),
             Helper::searchInPHPSourceFilesOfModules($themes, $search_terms),
             // Before
@@ -81,5 +81,11 @@ class Version_2_42
                 ],
             ],
         );
+
+        if ($report instanceof Component) {
+            $warning = true;
+        }
+
+        return $report;
     }
 }

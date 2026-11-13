@@ -22,12 +22,12 @@ use Dotclear\Plugin\PreCheck\Helper;
 
 class Version_2_39
 {
-    public static function check(): ?Component
+    public static function check(bool &$warning): ?Component
     {
         $checks = [
-            self::checkUrlType(),
-            self::checkOldForm(),
-            self::checkDeprecatedBehaviors(),
+            self::checkUrlType($warning),
+            self::checkOldForm($warning),
+            self::checkDeprecatedBehaviors($warning),
         ];
 
         $checks = array_filter($checks, fn (?Component $v): bool => !is_null($v));
@@ -39,7 +39,7 @@ class Version_2_39
             : null;
     }
 
-    public static function checkUrlType(): ?Component
+    public static function checkUrlType(bool &$warning): ?Component
     {
         // Check if there any reference to App::url()->type which should be replaced by App::url()->getType()
 
@@ -50,7 +50,7 @@ class Version_2_39
         $plugins = Helper::getPlugins();
         $themes  = Helper::getThemes(exclude_distributed: false);   // We may have some old distributed themes copied in current themes folder
 
-        return Helper::makeReport(
+        $report = Helper::makeReport(
             Helper::searchInPHPSourceFilesOfModules($plugins, $search_terms),
             Helper::searchInPHPSourceFilesOfModules($themes, $search_terms),
             // Before
@@ -68,9 +68,15 @@ class Version_2_39
                 ],
             ],
         );
+
+        if ($report instanceof Component) {
+            $warning = true;
+        }
+
+        return $report;
     }
 
-    public static function checkOldForm(): ?Component
+    public static function checkOldForm(bool &$warning): ?Component
     {
         // Check if there any reference to form::... which should be replaced by Helper/Html/Form/Component
 
@@ -87,7 +93,7 @@ class Version_2_39
             // Before
             [
                 [
-                    false,   // warning
+                    false,   // info
                     __('The <code>form::???()</code> methods are (strongly) deprecated as of <strong>Dotclear 2.26</strong> (released on May 13, 2023), but are still used in the following modules.<br>You should review and update them (by using <code>Helper/Html/Form/...</code>).'),
                 ],
             ],
@@ -101,7 +107,7 @@ class Version_2_39
         );
     }
 
-    public static function checkDeprecatedBehaviors(): ?Component
+    public static function checkDeprecatedBehaviors(bool &$warning): ?Component
     {
         // Check if there any usage of coreContentFilter behavior
 

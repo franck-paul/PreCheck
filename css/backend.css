@@ -1,6 +1,10 @@
 #precheck {
   summary {
     margin-block-end: 1em;
+
+    &.precheck_warning {
+      color: var(--required);
+    }
   }
 
   hr {
