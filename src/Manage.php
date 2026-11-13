@@ -68,20 +68,18 @@ class Manage
 
         // Execute each precheck and add its result to the main result (if their version is higher than current)
         foreach ($prechecks as $precheck) {
-            if (version_compare($current, $precheck['version']) === -1) {
-                require_once $precheck['file'];
-                $result = $precheck['class']::check();
-                if ($result instanceof Component) {
-                    // Some actions should be taken before upgrading
-                    $results[] = (new Details('precheck-' . $precheck['version']))
-                        ->open(true)
-                        ->summary((new Summary(sprintf(__('Some verifications requested by Dotclear <strong>%1$s</strong> should be done before upgrading to this version:'), $precheck['version']))))
-                        ->items([
-                            $result,
-                        ]);
-                    // Change status to show details in render
-                    self::$status = false;
-                }
+            require_once $precheck['file'];
+            $result = $precheck['class']::check();
+            if ($result instanceof Component) {
+                // Some actions should be taken before upgrading
+                $results[] = (new Details('precheck-' . $precheck['version']))
+                    ->open(true)
+                    ->summary((new Summary(sprintf(__('Some verifications requested by Dotclear <strong>%1$s</strong> should be done before upgrading to this version:'), $precheck['version']))))
+                    ->items([
+                        $result,
+                    ]);
+                // Change status to show details in render
+                self::$status = false;
             }
         }
 
