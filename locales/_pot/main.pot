@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dotclear 2 PreCheck module\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-13 13:58+0100\n"
+"POT-Creation-Date: 2026-11-17 12:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -74,6 +74,7 @@ msgstr ""
 #: ../git-plugins/PreCheck/src/Version/Version_2_40.php:74
 #: ../git-plugins/PreCheck/src/Version/Version_2_41.php:66
 #: ../git-plugins/PreCheck/src/Version/Version_2_42.php:80
+#: ../git-plugins/PreCheck/src/Version/Version_2_45.php:85
 msgid "Some distributed themes may appear in this list if you copied them to a directory other than Dotclear's <var>themes</var> directory.<br>In that case, we recommend deleting them from your custom directory and using the button labeled “ Add the distributed themes here ” on the blog's appearance page."
 msgstr ""
 
@@ -108,4 +109,8 @@ msgstr ""
 
 #: ../git-plugins/PreCheck/src/Version/Version_2_42.php:73
 msgid "<code>form</code> and <code>formSelectOption</code> classes are deprecated since <strong>Dotclear 2.26</strong> (published on May 13, 2023) and are still present in the following modules.<br>You must review and update them by using their replacements (see <code>Dotclear/Helper/Html/Form/...</code>)."
+msgstr ""
+
+#: ../git-plugins/PreCheck/src/Version/Version_2_45.php:78
+msgid "Global variables <code>$_ctx</code>, <code>__l10n</code>, <code>__l10n_files</code>, <code>_lang</code>, <code>_menu</code>, <code>mod_files</code>, <code>mod_ts</code>, <code>_page_number</code>, <code>p_url</code> and <code>__widgets</code> are deprecated since <strong>Dotclear 2.23</strong> (published on August 13, 2022) and are still present in the following modules.<br>You must review and update them."
 msgstr ""
