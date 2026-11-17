@@ -112,6 +112,41 @@ class Helper
     }
 
     /**
+     * Search list of terms in a list of module and return an array of found PHP source files containing these terms
+     * The result (list of source files) will be provided as an array with these keys:
+     * - module name (primary)
+     * - term (secondary)
+     *
+     * @param  ModuleDefine[]           $modules        List of module to check
+     * @param  array<string, string>    $search_terms   List of terms to search for in modules array<label, regular expression>
+     *
+     * @return array<string, array<string, string[]>>
+     */
+    public static function searchInJSSourceFilesOfModules(array $modules, array $search_terms): array
+    {
+        $results = [];
+
+        foreach ($modules as $module) {
+            $root = $module->get('root');
+            if (is_string($root) && is_dir($root)) {
+                $id   = $module->getId();
+                $name = is_string($name = $module->get('name')) ? $name : $id;
+                if ($name !== $id) {
+                    $name = sprintf('%1$s (%2$s)', $name, $id);
+                }
+
+                // Scan root folder
+                $results = self::searchInJSSourceFilesOfModulesSubDir($results, $root, '', $name, $search_terms);
+
+                // Scan root/src folder and its sub folders
+                $results = self::searchInJSSourceFilesOfModulesSubDir($results, $root, 'js', $name, $search_terms, true);
+            }
+        }
+
+        return $results;
+    }
+
+    /**
      * Search list of terms in a list of module and return an array of found PHP source files (in one subdir) containing these terms
      * The result (list of source files) will be provided as an array with these keys:
      * - module name (primary)
@@ -155,6 +190,70 @@ class Helper
                 }
 
                 if ($fileInfo->getExtension() !== 'php') {
+                    continue;
+                }
+
+                $realpath = $fileInfo->getRealPath();
+                if ($realpath !== false) {
+                    $content = file_get_contents($realpath);
+                    if ($content !== false) {
+                        foreach ($search_terms as $key => $term) {
+                            if ((bool) preg_match($term, $content)) {
+                                $results[$name][$key][] = ($suffix !== '' ? $suffix . DIRECTORY_SEPARATOR : '') . $fileInfo->getFilename();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        return $results;
+    }
+
+    /**
+     * Search list of terms in a list of module and return an array of found PHP source files (in one subdir) containing these terms
+     * The result (list of source files) will be provided as an array with these keys:
+     * - module name (primary)
+     * - term (secondary)
+     *
+     * @param  array<string, array<string, string[]>>   $results        Current results
+     * @param  string                                   $root           Root folder to search in
+     * @param  string                                   $suffix         Main sub-folder
+     * @param  string                                   $name           Module name
+     * @param  array<string, string>                    $search_terms   List of terms to search for in modules array<label, regular expression>
+     *
+     * @return array<string, array<string, string[]>>
+     */
+    private static function searchInJSSourceFilesOfModulesSubDir(
+        array $results,
+        string $root,
+        string $suffix,
+        string $name,
+        array $search_terms,
+        bool $recurse = false
+    ): array {
+        $folder = $root . ($suffix !== '' ? DIRECTORY_SEPARATOR . $suffix : '');
+        if (is_dir($folder)) {
+            foreach (new DirectoryIterator($folder) as $fileInfo) {
+                if ($fileInfo->isDot()) {
+                    continue;
+                }
+
+                if ($fileInfo->isDir()) {
+                    if ($recurse) {
+                        $results = self::searchInJSSourceFilesOfModulesSubDir(
+                            $results,
+                            $root,
+                            ($suffix !== '' ? $suffix . DIRECTORY_SEPARATOR : '') . $fileInfo->getFilename(),
+                            $name,
+                            $search_terms
+                        );
+                    }
+
+                    continue;
+                }
+
+                if ($fileInfo->getExtension() !== 'js' && $fileInfo->getExtension() !== 'mjs') {
                     continue;
                 }
 

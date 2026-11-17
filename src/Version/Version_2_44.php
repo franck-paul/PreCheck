@@ -56,7 +56,7 @@ class Version_2_44
             [
                 [
                     true,   // warning
-                    __('<code>Clearbicks</code> class is deprecated since <strong>Dotclear 2.26</strong> (published on May 13, 2023) and are still present in the following modules.<br>You must review and update them.'),
+                    __('<code>Clearbricks</code> class is deprecated since <strong>Dotclear 2.26</strong> (published on May 13, 2023) and are still present in the following modules.<br>You must review and update them.'),
                 ],
             ],
             // After
