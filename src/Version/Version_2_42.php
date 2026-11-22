@@ -54,7 +54,7 @@ class Version_2_42
             'form::date()'     => '/\\bform::\\bdate\(/m',
             'form::time()'     => '/\\bform::\\btime\(/m',
             'form::file()'     => '/\\bform::\\bfile\(/m',
-            'form::number()'   => '/\\bform::\\number\(/m',
+            'form::number()'   => '/\\bform::\\bnumber\(/m',
             'form::textArea()' => '/\\bform::\\btextArea\(/m',
             'form::hidden()'   => '/\\bform::\\bhidden\(/m',
             'formSelectOption' => '/\\bformSelectOption/m',
