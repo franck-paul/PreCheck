@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.17.1 — 2026-11-22
+
+- Fixes a typo (thanks JcDenis).
+
+## 1.17 — 2026-11-22
+
+- Completes the checks for Dotclear 2.45.
+
 ## 1.16 — 2026-11-17
 
 - Add some checks for future 2.43
